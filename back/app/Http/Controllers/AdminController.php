@@ -6,6 +6,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\UnderCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class AdminController extends Controller
 {
@@ -24,7 +27,7 @@ class AdminController extends Controller
         $type = $request->type;
         
         if ($type == 'category') {
-            $form = $request-> validate([
+            $form = $request -> validate([
                 'title' => ['required', 'min:3']
             ]);
 
@@ -34,7 +37,7 @@ class AdminController extends Controller
 
             return redirect('/admin');
         } elseif ($type == 'under_category') {
-            $form = $request->validate([
+            $form = $request -> validate([
                 'title' => ['required', 'min:3'],
                 'category_id' => ['required'],
             ]);
@@ -45,6 +48,39 @@ class AdminController extends Controller
             ]);
 
             return redirect('/admin');
+        } elseif ($type == 'product') {
+            $form = $request -> validate([
+                'title' => ['required', 'min:4'],
+                'under_category_id' => ['required'],
+                'description' => ['required'],
+                'price' => ['required'],
+            ]);
+
+            $image = $request->image;
+            $imageName = Str::random(32).'.'.$image->getClientOriginalName(); 
+
+            $product = Product::create([
+                'title' => $form['title'],
+                'slug' => implode('-', explode(' ', strtolower($form['title']))),
+                'image' =>$imageName,
+                'user_id' => Auth::user()->id,
+                'under_category_id' =>$form['under_category_id'],
+                'description' => $form['description'],
+                'price' => $form['price'],
+            ]);
+
+            $path = public_path('uploads/');
+            $image->move($path, $imageName);
+
+            return redirect('/');
+        } elseif ($type == 'delete_under_category') {
+            $category = UnderCategory::find($request->category_id);
+            
+
+            if ($category) {
+                $category->delete();
+                return redirect('/admin');
+            }
         } elseif ($type == 'delete_category') {
             $category = Category::find($request->category_id);
 
@@ -52,13 +88,13 @@ class AdminController extends Controller
                 $category->delete();
                 return redirect('/admin');
             }
-        } elseif ($type == 'delete_under_category') {
-            $category = UnderCategory::find($request->category_id);
+        } elseif ($type == 'delete_product') {
+            $product = Product::find($request->product_id);
 
-            if ($category) {
-                $category->delete();
+            if ($product) {
+                $product->delete();
                 return redirect('/admin');
             }
         }
-    }
+     }
 }
