@@ -23,7 +23,7 @@
          overflow-x: hidden;
          padding: 0 5vw;
       }
-      input {
+      input, select {
          background-color: rgb(254,254,254,.05);
          font-size: 18px;
          padding: 10px 10px;
@@ -36,7 +36,7 @@
          border-bottom: 2px solid rgb(0,0,0,.1);
          border-radius: 0;
       }
-      input:focus {
+      input:focus, select:focus {
          border-bottom: 2px solid rgb(0,0,0);
       }
      
@@ -61,17 +61,22 @@
          align-items: center;
          gap: 10px
       }
-      .header__menu a {
+      .header__menu a, .link {
          padding: 8px;
          transition: all .3s linear;
          display: flex;
          justify-content: center;
          align-items: center;
          flex-direction: column;
+         background-color: transparent;
+         font-size: 18px;
+         border: none;
+         outline: none;
       }
-      .header__menu a:hover {
+      .header__menu a:hover, .link:hover {
          background-color: rgb(0,0,0,.1);
          border-radius: 100%;
+         cursor: pointer;
       }
       a {
          color: #000000;
@@ -140,6 +145,34 @@
          color: #000000;
          border: 2px solid #000000;
       }
+      .admin {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         padding: 10px 2vw;
+         gap: 3vw
+      }
+      .admin__right {
+         width: 60%;
+      }
+      .admin__left {
+         width: 40%;
+      }
+      .admin__header {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         align-items: center; 
+         border-bottom: 2px solid rgb(0,0,0,.1);
+         padding: 10px 0;
+         margin-bottom: 6px;
+      }
+      .category {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+      }
    </style>
 </head>
 <body>
@@ -160,6 +193,11 @@
          <a href="/profile">
             <span class="material-symbols-outlined">
                account_circle
+            </span>
+         </a>
+         <a href='/admin'>
+         <span class="material-symbols-outlined">
+            view_list
             </span>
          </a>
          <a href="/logout">
