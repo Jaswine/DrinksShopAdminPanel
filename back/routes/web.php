@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UnderCategoryController;
+use App\Http\Controllers\UserController;
 use App\Models\UnderCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,12 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('', [ProductController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
-   // admin
-   Route::get('/admin', [AdminController::class, 'admin']);
-   Route::post('/admin', [AdminController::class, 'store']);
+   Route::middleware(['auth', 'isAdmin'])->group(function () {
+      // admin
+      Route::get('/admin', [AdminController::class, 'admin']);
+      Route::post('/admin', [AdminController::class, 'store']);
+   });
+
+   // profile
+   Route::get('/profile', [UserController::class, 'profile']);
 });

@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function profile() {
-        // return response();
+        return view('profile/profile');
     }
 }

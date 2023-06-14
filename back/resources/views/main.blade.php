@@ -170,6 +170,13 @@
          gap: 3vw;
          margin-bottom: 5vw
       }
+      .trash {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         gap: 3vw;
+         margin-bottom: 5vw
+      }
       .admin__right {
          width: 60%;
       }
@@ -238,7 +245,7 @@
       .page__blocks {
          display: flex;
          justify-content: center;
-         align-items: center;
+         align-items: start;
          flex-wrap: wrap;
          width: 100%;
       }
@@ -249,7 +256,6 @@
          flex-direction: column;
          max-width: 280px;
          width: 100%;
-         height: 400px;
          border: 2px solid rgb(0,0,0,.1);
          margin: 10px;
          border-radius: 4px;
@@ -259,6 +265,7 @@
       .page__blocks .product img {
          width: 100%;
          height: 100%;
+         max-height: 250px;
          object-fit: cover;
          border-radius: 4px;
       }
@@ -291,33 +298,47 @@
          color: #000000;
          padding: 6px 4px;
       }
+      .auth__form {
+         margin-top: 3vh;
+         row-gap: 3vh !important;
+      }
+      .page__profile {
+         width: 100%;
+         display: flex;
+         justify-content: start;
+         align-items: center;
+         flex-direction: column;
+         font-size: 20px;
+      }
    </style>
 </head>
 <body>
    <header>
       <a href="/" class="logo">SHOP</a>
       <div class="header__menu">
+      <a href='/'>
+         <span class="material-symbols-outlined">
+            home
+          </span>
+      </a>
          @auth
-            <a href="/trash">
+            <a href="/profile">
             <span class="material-symbols-outlined">
             shopping_cart
             </span>
-         </a>
-         <a href="/favorites">
-            <span class="material-symbols-outlined">
-               favorite
-               </span>
          </a>
          <a href="/profile">
             <span class="material-symbols-outlined">
                account_circle
             </span>
          </a>
-         <a href='/admin'>
-         <span class="material-symbols-outlined">
-            view_list
-            </span>
-         </a>
+         @if(auth()->user()->isAdmin)
+            <a href='/admin'>
+               <span class="material-symbols-outlined">
+                  view_list
+               </span>
+            </a>
+         @endif
          <a href="/logout">
             <span class="material-symbols-outlined">
                logout

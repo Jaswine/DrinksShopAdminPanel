@@ -13,14 +13,16 @@
                <h3>{{ $product->title }}</h3>
                <span>{{ $product->price }}$</span>
             </div>
-            <div class="product__footer">
-               <button class="add">Add To Trash</button>
-               <button>
-                  <span class="material-symbols-outlined">
-                     favorite
-                  </span>
-               </button>
-            </div>
+            @auth
+               <div class="product__footer">
+                    <button class="add">Add To Trash</button>
+                  <button>
+                     <span class="material-symbols-outlined">
+                        favorite
+                     </span>
+                  </button>
+               </div>
+            @endauth
          </div>
       @endforeach
    @else

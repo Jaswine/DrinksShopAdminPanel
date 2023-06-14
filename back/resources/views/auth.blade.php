@@ -21,7 +21,7 @@
          @endif
       >Sign Up</a>
    </div>
-   <form action=""  method="POST" >
+   <form action=""  method="POST" class='auth__form' >
       @csrf
 
       @if($type == 'register')
